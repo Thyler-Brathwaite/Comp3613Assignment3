@@ -102,6 +102,7 @@ def listloggedHours():
 
 student_cli = AppGroup('student', help='Student object commands')
 
+#Command to view total approved hours for a student (student_id)
 @student_cli.command("hours", help="View total approved hours for a student")
 
 def hours ():
@@ -116,6 +117,7 @@ def hours ():
     print(f"Total approved hours for {student.name}: {total_hours}")
     print("\n")
 
+#Command to create a new student (name, email)
 @student_cli.command("create", help="Create a new student")
 def create_student():
     print("\n")
