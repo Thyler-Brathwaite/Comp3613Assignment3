@@ -47,4 +47,11 @@ class Student(db.Model):
             accolades.append('50 Hours Milestone')
         return accolades
     
+    def get_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'user_id': self.user_id
+        }
     

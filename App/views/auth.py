@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, flash, send_from_directory, flash, redirect, url_for
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
-
+from App.models import Staff, User, Student
 
 from.index import index_views
 
@@ -35,6 +35,24 @@ def login_action():
         flash('Login Successful')
         set_access_cookies(response, token) 
     return response
+
+@auth_views.route('/authorize/<user_id>', methods=['GET'])
+@jwt_required()
+def authorize_action(user_id):
+    user_id = int(user_id)
+    staff = Staff.query.all()
+    students = Student.query.all()
+    for st in staff:
+        if st.user_id == user_id:
+            user = User.query.get(user_id)
+            return jsonify(message=f"User {user.username} authorized as staff")
+
+    for st in students:
+        if st.user_id == user_id:
+            user = User.query.get(user_id)
+            return jsonify(message=f"User {user.username} authorized as student")
+    
+    return jsonify(message="No matching staff or student record found"), 404
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():

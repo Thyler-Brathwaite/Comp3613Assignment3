@@ -64,4 +64,12 @@ def process_request_denial(staff_id, request_id): #staff denies a student's hour
         'denial_successful': denied
     }
     
- 
+def get_all_staff():
+    return db.session.scalars(db.select(Staff)).all()
+
+def get_all_staff_json():
+    staff = get_all_staff()
+    if not staff:
+        return []
+    staff = [staff_member.get_json() for staff_member in staff]
+    return staff

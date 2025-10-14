@@ -7,7 +7,7 @@ from App.controllers import (
     create_user,
     get_all_users,
     get_all_users_json,
-    jwt_required
+    jwt_required,
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -38,3 +38,4 @@ def create_user_endpoint():
 @user_views.route('/static/users', methods=['GET'])
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
+

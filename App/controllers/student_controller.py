@@ -50,3 +50,13 @@ def generate_leaderboard():
     leaderboard.sort(key=lambda item: item['hours'], reverse=True)
 
     return leaderboard
+
+def get_all_students(): #fetch all students
+    return db.session.scalars(db.select(Student)).all()
+
+def get_all_students_json(): #fetch all students in json format
+    students = get_all_students()
+    if not students:
+        return []
+    students = [student.get_json() for student in students]
+    return students

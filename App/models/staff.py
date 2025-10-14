@@ -45,4 +45,11 @@ class Staff(db.Model):
         db.session.commit()
         return True
     
+    def get_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'user_id': self.user_id
+        }
     
