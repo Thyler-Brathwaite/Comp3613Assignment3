@@ -9,7 +9,8 @@ from App.controllers import (
     get_all_users_json,
     jwt_required,
     get_all_requests_json,
-    get_all_loggedhours_json
+    get_all_loggedhours_json,
+    generate_leaderboard
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -50,3 +51,8 @@ def get_requests_action():
 def get_loggedhours_action():
     logs = get_all_loggedhours_json()
     return jsonify(logs)
+
+@user_views.route('/viewLeaderboard', methods=['GET'])
+def view_leaderboard():
+    leaderboard = generate_leaderboard()
+    return leaderboard

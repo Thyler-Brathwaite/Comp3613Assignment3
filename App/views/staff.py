@@ -16,3 +16,4 @@ staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 @staff_views.route('/api/staff', methods=['GET'])
 def api_get_all_staff():
     return jsonify(get_all_staff_json())
+
