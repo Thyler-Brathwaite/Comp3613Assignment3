@@ -1,4 +1,4 @@
-from App.models import User
+from App.models import User,LoggedHours,Request
 from App.database import db
 
 def create_user(username, password):
@@ -32,3 +32,23 @@ def update_user(id, username):
         db.session.commit()
         return True
     return None
+
+def get_all_requests():
+    return db.session.scalars(db.select(Request)).all()
+
+def get_all_requests_json():
+    requests = get_all_requests()
+    if not requests:
+        return []
+    requests = [request.get_json() for request in requests]
+    return requests
+
+def get_all_loggedhours():
+    return db.session.scalars(db.select(LoggedHours)).all()
+
+def get_all_loggedhours_json():
+    logs = get_all_loggedhours()
+    if not logs:
+        return []
+    logs = [log.get_json() for log in logs]
+    return logs

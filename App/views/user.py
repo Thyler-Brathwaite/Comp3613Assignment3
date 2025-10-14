@@ -8,6 +8,8 @@ from App.controllers import (
     get_all_users,
     get_all_users_json,
     jwt_required,
+    get_all_requests_json,
+    get_all_loggedhours_json
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -39,3 +41,12 @@ def create_user_endpoint():
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
 
+@user_views.route('/api/requests', methods=['GET'])
+def get_requests_action():
+    requests = get_all_requests_json()
+    return jsonify(requests)
+
+@user_views.route('/api/loggedhours', methods=['GET'])
+def get_loggedhours_action():
+    logs = get_all_loggedhours_json()
+    return jsonify(logs)
