@@ -6,7 +6,8 @@ from.index import index_views
 
 from App.controllers import (
     login,
-
+    register_student,
+    register_staff
 )
 
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
@@ -60,6 +61,31 @@ def logout_action():
     flash("Logged Out!")
     unset_jwt_cookies(response)
     return response
+
+@auth_views.route('/create_student/<user_id>/<name>/<email>', methods=['GET'])
+def create_student_page(user_id, name, email):
+    user_id = int(user_id)
+    user = User.query.get(user_id)
+    if not user:
+        flash(f"No user found with id {user_id}")
+        return jsonify(message=f"No user found with id {user_id}"), 404
+
+    register_student(name, email,user_id)
+    return jsonify(message=f"Student created successfully!")
+    
+
+
+@auth_views.route('/create_staff/<user_id>/<name>/<email>', methods=['GET'])
+def create_staff_page(user_id, name, email):
+    user_id = int(user_id)
+    user = User.query.get(user_id)
+    if not user:
+        
+        return jsonify(message=f"No user found with id {user_id}"), 404
+
+    register_staff(name, email, user_id)
+    return jsonify(message=f"Staff created successfully!")
+    
 
 '''
 API Routes
