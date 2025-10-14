@@ -5,19 +5,21 @@ class Staff(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     #relationaship to LoggedHours
     loggedhours = db.relationship('LoggedHours', backref='staff', lazy=True, cascade="all, delete-orphan")
 
-    def __init__(self, name, email):
+    def __init__(self, name, email, user_id):
         self.name = name
         self.email = email
+        self.user_id = user_id
 
     def __repr__(self):
         return f"[Staff ID= {self.id:<3} Name= {self.name:<15} Email= {self.email}]"
     
     # Method to create a new staff member
-    def create_staff(name, email):
-        newstaff = Staff(name=name, email=email)
+    def create_staff(name, email, user_id):
+        newstaff = Staff(name=name, email=email, user_id=user_id)
         db.session.add(newstaff)
         db.session.commit()
         return newstaff

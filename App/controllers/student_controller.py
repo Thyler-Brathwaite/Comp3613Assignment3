@@ -1,8 +1,8 @@
 from App.database import db
 from App.models import User,Staff,Student,Request
 
-def register_student(name,email):
-    new_student=Student.create_student(name,email)
+def register_student(name,email,user_id): #register a new student
+    new_student=Student.create_student(name,email,user_id)
     return new_student
 
 def get_approved_hours(student_id): #calculates and returns the total approved hours for a student

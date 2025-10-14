@@ -1,8 +1,8 @@
 from App.database import db
 from App.models import User,Staff,Student,Request
 
-def register_staff(name,email):
-    new_staff = Staff.create_staff(name, email)
+def register_staff(name,email,user_id): #register a new staff member
+    new_staff = Staff.create_staff(name, email, user_id)
     return new_staff
 
 def fetch_all_requests(): #fetches all pending requests for staff to review
@@ -63,3 +63,5 @@ def process_request_denial(staff_id, request_id): #staff denies a student's hour
         'staff_name': staff.name,
         'denial_successful': denied
     }
+    
+ 

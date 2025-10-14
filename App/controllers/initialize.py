@@ -1,4 +1,7 @@
-from App.models import Student, Staff, Request
+from App.models import Student, Staff, Request,User
+from App.controllers.student_controller import register_student
+from App.controllers.staff_controller import register_staff
+from App.controllers.user import create_user
 from App.database import db
 
 
@@ -11,24 +14,38 @@ def initialize():
 
     # Add sample students
 
+    users = [
+        create_user('alice', 'alicepass'),
+        create_user('bob', 'bobpass'),
+        create_user('charlie', 'charliepass'),
+        create_user('diana', 'dianapass'),
+        create_user('eve', 'evepass'),
+        create_user('frank', 'frankpass'),
+        create_user('grace', 'gracepass'),     
+        create_user('Mr. Smith', 'smithpass'),
+        create_user('Ms. Johnson', 'johnsonpass'),
+        create_user('Mr. Lee', 'leepass'),
+    ]
+    db.session.add_all(users)
+    db.session.commit()
+    
     students = [
-        Student(name='Alice', email='alice.smith@gmail.com'),
-        Student(name='Bob', email='bob.jones@hotmail.com'),
-        Student(name='Charlie', email='charlie.brown@gmail.com'),
-        Student(name='Diana', email='diana.lee@hotmail.com'),
-        Student(name='Eve', email='eve.patel@gmail.com'),
-        Student(name='Frank', email='frank.miller@gmail.com'),
-        Student(name='Grace', email='grace.wilson@hotmail.com'),
+        register_student('Alice', 'alice.smith@gmail.com', 1),
+        register_student('Bob', 'bob.jones@hotmail.com', 2),
+        register_student('Charlie', 'charlie.brown@gmail.com', 3),
+        register_student('Diana', 'diana.lee@hotmail.com', 4),
+        register_student('Eve', 'eve.patel@gmail.com', 5),
+        register_student('Frank', 'frank.miller@gmail.com', 6),
+        register_student('Grace', 'grace.wilson@hotmail.com', 7),
     ]
     db.session.add_all(students)
     db.session.commit()
 
     # Add sample staff members
     staff_members = [
-        Staff(name='Mr. Smith', email='mr.smith@gmail.com'),
-        Staff(name='Ms. Johnson', email='ms.johnson@hotmail.com'),
-        Staff(name='Mr. Lee', email='mr.lee@gmail.com'),
-        
+        register_staff('Mr. Smith', 'mr.smith@gmail.com', 8),
+        register_staff('Ms. Johnson', 'ms.johnson@hotmail.com', 9),
+        register_staff('Mr. Lee', 'mr.lee@gmail.com', 10),
     ]
     for staff_member in staff_members:
         db.session.add(staff_member)

@@ -34,7 +34,13 @@ def init():
     initialize()
     print('database intialized')
 
-
+@app.cli.command("listUsers", help="Lists all users in the database")
+def listUsers():
+    print("\nAll Users:")
+    users = User.query.all()
+    for user in users:
+        print(f"ID: {user.id}, Username: {user.username}")
+    print("\n")
 
 #Comamand to list all staff in the database
 @app.cli.command ("listStaff", help="Lists all staff in the database")

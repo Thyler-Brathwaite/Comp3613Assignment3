@@ -10,6 +10,8 @@ class User(db.Model):
         self.username = username
         self.set_password(password)
 
+    def _repr__(self):
+        return f"[User ID= {self.id:<3} Username= {self.username}]"
     
     def get_json(self):
         return{

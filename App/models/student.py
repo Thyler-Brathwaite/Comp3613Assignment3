@@ -5,21 +5,23 @@ class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     #relationship to LoggedHours and Request both One-to-Many
     loggedhours = db.relationship('LoggedHours', backref='student', lazy=True, cascade="all, delete-orphan")
     requests = db.relationship('Request', backref='student', lazy=True, cascade="all, delete-orphan")
 
-    def __init__(self, name, email):
+    def __init__(self, name, email, user_id):
         self.name = name
         self.email = email
+        self.user_id = user_id
 
     def __repr__(self):
         return f"[Student ID= {self.id:<3}  Name= {self.name:<15} Email= {self.email}]"
     
     
     # Method to create a new student
-    def create_student(name, email):
-        newstudent = Student(name=name, email=email)
+    def create_student(name, email, user_id):
+        newstudent = Student(name=name, email=email, user_id=user_id)
         db.session.add(newstudent)
         db.session.commit()
         return newstudent
