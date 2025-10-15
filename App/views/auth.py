@@ -29,10 +29,10 @@ def identify_page():
 def login_action():
     data = request.form
     token = login(data['username'], data['password'])
-    response = redirect('/')
+    
+    response = redirect(request.referrer)
     if not token:
         flash('Bad username or password', 401)
-        return response, 401
     else:
         flash('Login Successful', 201)
         set_access_cookies(response, token) 
