@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from App.controllers.staff_controller import get_all_staff_json
+from App.controllers.student_controller import create_hours_request
 from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from App.models import Student
 
@@ -29,3 +30,18 @@ def api_view_accolades():
     accolades = student.accolades()
     return jsonify(accolades)
 
+@student_views.route('/api/create_hours_request', methods=['POST'])
+@jwt_required()
+def api_create_hours_request():
+    user = jwt_current_user
+    student = Student.query.filter_by(user_id=user.id).first()
+    if not student:
+        return jsonify({"error": "Only students are allowed to create hours requests"}), 404
+    
+    data = request.form
+    hours = data.get('hours')
+    hours = int(hours) 
+    if not hours or hours <= 0:
+        return jsonify({"error": "Invalid hours value"}), 400
+    req = create_hours_request(student.id, hours)
+    return jsonify({"message": f"Hours request for {hours} hours created", "request_id": req.id}), 201
