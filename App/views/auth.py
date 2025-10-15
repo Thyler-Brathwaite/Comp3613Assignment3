@@ -29,11 +29,11 @@ def identify_page():
 def login_action():
     data = request.form
     token = login(data['username'], data['password'])
-    response = redirect(request.referrer)
+    response = redirect('/')
     if not token:
-        flash('Bad username or password given'), 401
+        flash('Bad username or password given', 401)
     else:
-        flash('Login Successful')
+        flash('Login Successful', 201)
         set_access_cookies(response, token) 
     return response
 
@@ -62,7 +62,7 @@ def logout_action():
     unset_jwt_cookies(response)
     return response
 
-@auth_views.route('/create_student/<user_id>/<name>/<email>', methods=['GET'])
+@auth_views.route('/create_student/<user_id>/<name>/<email>', methods=['POST'])
 def create_student_page(user_id, name, email):
     user_id = int(user_id)
     user = User.query.get(user_id)
@@ -75,7 +75,7 @@ def create_student_page(user_id, name, email):
     
 
 
-@auth_views.route('/create_staff/<user_id>/<name>/<email>', methods=['GET'])
+@auth_views.route('/create_staff/<user_id>/<name>/<email>', methods=['POST'])
 def create_staff_page(user_id, name, email):
     user_id = int(user_id)
     user = User.query.get(user_id)

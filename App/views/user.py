@@ -52,7 +52,7 @@ def get_loggedhours_action():
     logs = get_all_loggedhours_json()
     return jsonify(logs)
 
-@user_views.route('/viewLeaderboard', methods=['GET'])
+@user_views.route('/api/leaderboard', methods=['GET'])
 def view_leaderboard():
     leaderboard = generate_leaderboard()
     return leaderboard
