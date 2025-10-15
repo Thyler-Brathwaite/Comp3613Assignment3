@@ -31,7 +31,8 @@ def login_action():
     token = login(data['username'], data['password'])
     response = redirect('/')
     if not token:
-        flash('Bad username or password given', 401)
+        flash('Bad username or password', 401)
+        return response, 401
     else:
         flash('Login Successful', 201)
         set_access_cookies(response, token) 
@@ -62,13 +63,20 @@ def logout_action():
     unset_jwt_cookies(response)
     return response
 
-@auth_views.route('/create_student/<user_id>/<name>/<email>', methods=['POST'])
-def create_student_page(user_id, name, email):
+@auth_views.route('/create_student', methods=['POST'])
+def create_student_page():
+    data = request.form
+    name = data.get('name')
+    email = data.get('email')
+    user_id = data.get('user_id')
+    if not name or not email or not user_id:
+        flash("Missing required fields: name, email, user_id")
+        return redirect(request.referrer)
     user_id = int(user_id)
     user = User.query.get(user_id)
     if not user:
         flash(f"No user found with id {user_id}")
-        return jsonify(message=f"No user found with id {user_id}"), 404
+        return redirect(request.referrer)
 
     register_student(name, email,user_id)
     return jsonify(message=f"Student created successfully!")
