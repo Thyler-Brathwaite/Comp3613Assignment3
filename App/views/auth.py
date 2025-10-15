@@ -71,29 +71,35 @@ def create_student_page():
     user_id = data.get('user_id')
     if not name or not email or not user_id:
         flash("Missing required fields: name, email, user_id")
-        return redirect(request.referrer)
+        return redirect('/',401)
     user_id = int(user_id)
     user = User.query.get(user_id)
     if not user:
         flash(f"No user found with id {user_id}")
-        return redirect(request.referrer)
+        return redirect('/',401)
 
     register_student(name, email,user_id)
     return jsonify(message=f"Student created successfully!")
     
 
 
-@auth_views.route('/create_staff/<user_id>/<name>/<email>', methods=['POST'])
-def create_staff_page(user_id, name, email):
+@auth_views.route('/create_staff', methods=['POST'])
+def create_staff_page():
+    data = request.form
+    name = data.get('name')
+    email = data.get('email')
+    user_id = data.get('user_id')
+    if not name or not email or not user_id:
+        flash("Missing required fields: name, email, user_id")
+        return redirect('/')
     user_id = int(user_id)
     user = User.query.get(user_id)
     if not user:
-        
-        return jsonify(message=f"No user found with id {user_id}"), 404
+        flash(f"No user found with id {user_id}")
+        return redirect('/',401)
 
     register_staff(name, email, user_id)
-    return jsonify(message=f"Staff created successfully!")
-    
+    return jsonify(message=f"Staff created successfully!"), 200
 
 '''
 API Routes
