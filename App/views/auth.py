@@ -70,16 +70,15 @@ def create_student_page():
     email = data.get('email')
     user_id = data.get('user_id')
     if not name or not email or not user_id:
-        flash("Missing required fields: name, email, user_id")
-        return redirect('/',401)
+        return jsonify(message="Missing required fields"), 401
+    
     user_id = int(user_id)
     user = User.query.get(user_id)
     if not user:
-        flash(f"No user found with id {user_id}")
-        return redirect('/',401)
-
+        return jsonify(message="User not found"), 404
+    
     register_student(name, email,user_id)
-    return jsonify(message=f"Student created successfully!")
+    return jsonify(message=f"Student created successfully!"), 200
     
 
 
@@ -91,13 +90,12 @@ def create_staff_page():
     user_id = data.get('user_id')
     if not name or not email or not user_id:
         flash("Missing required fields: name, email, user_id")
-        return redirect('/')
+        return jsonify(message="Missing required fields"), 401
     user_id = int(user_id)
     user = User.query.get(user_id)
     if not user:
         flash(f"No user found with id {user_id}")
-        return redirect('/',401)
-
+        return jsonify(message="User not found"), 404
     register_staff(name, email, user_id)
     return jsonify(message=f"Staff created successfully!"), 200
 
