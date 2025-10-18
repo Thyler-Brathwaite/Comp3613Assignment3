@@ -38,7 +38,7 @@ def api_create_hours_request():
     if not student:
         return jsonify({"error": "Only students are allowed to create hours requests"}), 404
     
-    data = request.form
+    data = request.json
     hours = data.get('hours')
     hours = int(hours) 
     if not hours or hours <= 0:

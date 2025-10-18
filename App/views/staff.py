@@ -26,7 +26,7 @@ def api_approve_request():
     if not staff:
         return jsonify({"error": "Only staff are allowed to approve hours requests"}), 404
     
-    data = request.form
+    data = request.json
     request_id = data.get('request_id')
     if not request_id:
         return jsonify({"error": "Missing request_id"}), 400
@@ -55,7 +55,7 @@ def api_delete_request():
     if not staff:
         return jsonify({"error": "Only staff are allowed to delete hours requests"}), 404
 
-    data = request.form
+    data = request.json
     request_id = data.get('request_id')
     if not request_id:
         return jsonify({"error": "Missing request_id"}), 400
@@ -76,7 +76,7 @@ def api_delete_logged_hours():
     if not staff:
         return jsonify({"error": "Only staff are allowed to delete logged hours"}), 404
 
-    data = request.form
+    data = request.json
     logged_hours_id = data.get('logged_hours_id')
     if not logged_hours_id:
         return jsonify({"error": "Missing logged_hours_id"}), 400
