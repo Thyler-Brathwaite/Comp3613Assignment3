@@ -1,7 +1,7 @@
 from App.database import db
 from .user import User
 
-class Student(db.Model):
+class Student(User):
 
     __tablename__ = "student"
     student_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), primary_key=True)
@@ -19,7 +19,7 @@ class Student(db.Model):
        super().__init__(username, email, password, role="student")
 
     def __repr__(self):
-        return f"[Student ID= {self.student_id:<3}  Name= {self.name:<15} Email= {self.email}]"
+        return f"[Student ID= {self.student_id:<3}  Name= {self.username:<10} Email= {self.email}]"
     
     def get_json(self):
         return{
@@ -55,5 +55,4 @@ class Student(db.Model):
         if total_hours >= 50:
             accolades.append('50 Hours Milestone')
         return accolades
-    
-    
+

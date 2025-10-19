@@ -1,8 +1,8 @@
 from App.database import db
 from App.models import User,Staff,Student,Request
 
-def register_staff(name,email):
-    new_staff = Staff.create_staff(name, email)
+def register_staff(name,email,password): #registers a new staff member
+    new_staff = Staff.create_staff(name, email, password)
     return new_staff
 
 def fetch_all_requests(): #fetches all pending requests for staff to review
@@ -13,7 +13,7 @@ def fetch_all_requests(): #fetches all pending requests for staff to review
     requests_data=[]
     for req in pending_requests:
         student = Student.query.get(req.student_id)
-        student_name = student.name if student else "Unknown"
+        student_name = student.username if student else "Unknown"
         
         requests_data.append({
             'id': req.id,
@@ -34,13 +34,13 @@ def process_request_approval(staff_id, request_id): #staff approves a student's 
         raise ValueError(f"Request with id {request_id} not found.")
     
     student = Student.query.get(request.student_id)
-    name = student.name if student else "Unknown" # should always find student if data integrity is maintained
+    name = student.username if student else "Unknown" # should always find student if data integrity is maintained
     logged = staff.approve_request(request)
 
     return {
         'request': request,
         'student_name': name,
-        'staff_name': staff.name,
+        'staff_name': staff.username,
         'logged_hours': logged
     }
 
@@ -54,12 +54,12 @@ def process_request_denial(staff_id, request_id): #staff denies a student's hour
         raise ValueError(f"Request with id {request_id} not found.")
     
     student = Student.query.get(request.student_id)
-    name = student.name if student else "Unknown"
+    name = student.username if student else "Unknown"
     denied = staff.deny_request(request)
     
     return {
         'request': request,
         'student_name': name,
-        'staff_name': staff.name,
+        'staff_name': staff.username,
         'denial_successful': denied
     }

@@ -138,7 +138,8 @@ def create_student():
     try:
         name = input("Enter student name: ")
         email = input("Enter student email: ")
-        student = register_student(name, email)
+        password = input("Enter student password: ")    
+        student = register_student(name, email, password)
 
         print(f"Created student: {student}")
     except Exception as e:
@@ -250,7 +251,8 @@ def create_staff():
     try:
         name = input("Enter staff name: ")
         email = input("Enter staff email: ")
-        staff = register_staff(name, email)
+        password = input("Enter staff password: ")  
+        staff = register_staff(name, email, password)
 
         print(f"Created staff member: {staff}")
 

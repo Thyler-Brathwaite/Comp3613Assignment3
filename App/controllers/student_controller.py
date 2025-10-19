@@ -1,8 +1,8 @@
 from App.database import db
 from App.models import User,Staff,Student,Request
 
-def register_student(name,email,):
-    new_student=Student.create_student(name,email)
+def register_student(name,email,password):
+    new_student=Student.create_student(name,email,password)
     return new_student
 
 def get_approved_hours(student_id): #calculates and returns the total approved hours for a student
@@ -11,7 +11,7 @@ def get_approved_hours(student_id): #calculates and returns the total approved h
         raise ValueError(f"Student with id {student_id} not found.")
     
     total_hours = sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
-    return (student.name,total_hours)
+    return (student.username,total_hours)
 
 def create_hours_request(student_id,hours): #creates a new hours request for a student
     student = Student.query.get(student_id)
@@ -43,7 +43,7 @@ def generate_leaderboard():
         total_hours=sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
 
         leaderboard.append({
-            'name': student.name,
+            'name': student.username,
             'hours': total_hours
         })
 
