@@ -1,5 +1,6 @@
+import datetime
 from App.database import db
-from App.models import User,Staff,Student,Request
+from App.models import User,Staff,Student,Request,accolade
 
 def register_student(name,email,password):
     new_student=Student.create_student(name,email,password)
@@ -58,8 +59,36 @@ def check_accolade_eligibility(student_id  ):
     
     total_hours = sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
     
+    
     if total_hours >= 10:
+        new_accolade = accolade(
+            student_id=student.student_id,
+            accolade_name="10 Hours Milestone",
+            date_awarded=datetime.datetime.utcnow().date()
+        )
+        db.session.add(new_accolade)
+    student.accolades.append(new_accolade)
+    db.session.commit()
+    
+    if total_hours >= 25:
+        new_accolade = accolade(
+            student_id=student.student_id,
+            accolade_name="25 Hours Milestone",
+            date_awarded=datetime.datetime.utcnow().date()
+        )
+        db.session.add(new_accolade)
+        student.accolades.append(new_accolade)
         
+    if total_hours >= 50:
+        new_accolade = accolade(
+            student_id=student.student_id,
+            accolade_name="50 Hours Milestone",
+            date_awarded=datetime.datetime.utcnow().date()
+        )
+        db.session.add(new_accolade)
+        student.accolades.append(new_accolade)
+        
+        db.session.commit()    
         
     
     
