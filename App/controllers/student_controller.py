@@ -57,7 +57,7 @@ def check_accolade_eligibility(student_id  ):
     if not student:
         raise ValueError(f"Student with id {student_id} not found.")
     
-    total_hours = sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
+    total_hours = student.get_approved_hours()
     
     
     if total_hours >= 10:
@@ -78,6 +78,7 @@ def check_accolade_eligibility(student_id  ):
         )
         db.session.add(new_accolade)
         student.accolades.append(new_accolade)
+        
         
     if total_hours >= 50:
         new_accolade = accolade(
