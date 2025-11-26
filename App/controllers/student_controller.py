@@ -11,7 +11,7 @@ def get_approved_hours(student_id): #calculates and returns the total approved h
         raise ValueError(f"Student with id {student_id} not found.")
     
     total_hours = sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
-    return (student.username,total_hours)
+    return total_hours
 
 def create_hours_request(student_id,hours): #creates a new hours request for a student
     student = Student.query.get(student_id)
@@ -50,6 +50,19 @@ def generate_leaderboard():
     leaderboard.sort(key=lambda item: item['hours'], reverse=True)
 
     return leaderboard
+
+def check_accolade_eligibility(student_id  ):
+    student = Student.query.get(student_id)
+    if not student:
+        raise ValueError(f"Student with id {student_id} not found.")
+    
+    total_hours = sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
+    
+    if total_hours >= 10:
+        
+        
+    
+    
 
 def get_all_students_json():
     students = Student.query.all()
