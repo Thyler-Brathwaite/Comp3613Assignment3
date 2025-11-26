@@ -1,4 +1,5 @@
 from App.database import db
+from App.models.loggedhours import LoggedHours
 from .user import User
 
 class Student(User):
@@ -45,5 +46,18 @@ class Student(User):
         db.session.commit()
         return request
     
-    #
+    def get_total_hours(self):
+       
+        total = 0
+        for log in self.loggedhours:
+            if log.status == 'approved':
+                total += log.hours
+        return total
 
+    def total_hours(self):
+        return self.get_total_hours()
+    
+    
+
+    
+   

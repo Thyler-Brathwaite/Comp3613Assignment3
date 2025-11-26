@@ -1,23 +1,26 @@
 from App.database import db
-from datetime import datetime
 
-class accolade(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
-    accolade_name = db.Column(db.String(100), nullable=False)
-    date_awarded = db.Column(db.DateTime, default=datetime.utcnow)
+class Accolade(db.Model):
+    __tablename__ = "accolade"
 
-    def __init__(self, student_id, accolade_name):
+    accolade_id = db.Column(db.Integer, primary_key=True)
+    student_id  = db.Column(db.Integer, db.ForeignKey("student.student_id"), nullable=False)
+
+    title       = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.String(255))
+
+    def __init__(self, student_id, title, description=""):
         self.student_id = student_id
-        self.accolade_name = accolade_name
+        self.title = title
+        self.description = description
 
     def __repr__(self):
-        return f"[Accolade ID={self.id} StudentID={self.student_id} Accolade={self.accolade_name} Date Awarded={self.date_awarded}]"
+        return f"<Accolade {self.title} for Student {self.student_id}>"
 
     def get_json(self):
         return {
-            'id': self.id,
-            'student_id': self.student_id,
-            'accolade_name': self.accolade_name,
-            'date_awarded': self.date_awarded.isoformat()
+            "accolade_id": self.accolade_id,
+            "student_id": self.student_id,
+            "title": self.title,
+            "description": self.description
         }
