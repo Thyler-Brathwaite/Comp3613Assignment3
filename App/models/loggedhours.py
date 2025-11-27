@@ -2,6 +2,7 @@ from App.database import db
 from datetime import datetime
 
 class LoggedHours(db.Model):
+    __tablename__ = "loggedhours"
 
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
