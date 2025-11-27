@@ -3,10 +3,9 @@ from App.database import db
 class Accolade(db.Model):
     __tablename__ = "accolade"
 
-    accolade_id = db.Column(db.Integer, primary_key=True)
-    student_id  = db.Column(db.Integer, db.ForeignKey("student.student_id"), nullable=False)
-
-    title       = db.Column(db.String(120), nullable=False)
+    accolade_id= db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey("student.student_id"), nullable=False)
+    title = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(255))
 
     def __init__(self, student_id, title, description=""):
