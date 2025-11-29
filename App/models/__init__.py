@@ -3,3 +3,7 @@ from .student import Student
 from .staff import Staff
 from .request import Request
 from .loggedhours import LoggedHours
+from .accolade import Accolade
+from .activityHistory import activityhistory
+from .leaderboard import Leaderboard
+ 

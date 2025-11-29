@@ -1,4 +1,6 @@
-from App.models import db, Leaderboard
+from App.database import db
+from App.models import Leaderboard
+ 
 
 class LeaderboardController:
     
