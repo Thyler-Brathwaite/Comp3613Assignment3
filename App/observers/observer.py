@@ -1,3 +1,3 @@
 class Observer:
-    def update(self, subject, event_type, payload):
+    def update(self, event_type, payload):
         raise NotImplementedError()

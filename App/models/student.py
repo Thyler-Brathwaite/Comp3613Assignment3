@@ -5,6 +5,8 @@ from App.models.loggedhours import LoggedHours
 from .user import User
 from App.observers.subject import Subject
 from App.observers.activity_history_observer import ActivityHistoryObserver
+from sqlalchemy.orm import reconstructor
+
 
 class Student(User, Subject):
     __tablename__ = "student"
@@ -42,8 +44,17 @@ class Student(User, Subject):
 
     def __init__(self, username, email, password):
         super().__init__(username, email, password, role="student")
-        self._observers = []
         Subject.__init__(self)
+        self._observers = []
+        self.attach(ActivityHistoryObserver())
+
+    @reconstructor
+    def init_on_load(self):
+        
+        Subject.__init__(self)
+        self._observers = []
+        self.attach(ActivityHistoryObserver())
+
 
     def __repr__(self):
         return f"[Student ID={self.student_id} Name={self.username} Email={self.email}]"

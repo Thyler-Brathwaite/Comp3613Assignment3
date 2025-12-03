@@ -90,8 +90,8 @@ def hours ():
 
         student = get_approved_hours(student_id)
 
-        name,total_hours = student
-        print(f"Total approved hours for {name}: {total_hours}")
+        total_hours = student
+        print(f"Total approved hours for studentId{student_id}: {total_hours}")
             
     except ValueError as e:
         print(f"Error: {e}")
