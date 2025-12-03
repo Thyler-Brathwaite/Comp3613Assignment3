@@ -64,6 +64,21 @@ def process_request_denial(staff_id, request_id):
         'denial_successful': denied
     }
 
+def generate_leaderboard():
+    students = Student.query.all()
+    leaderboard = []
+    for student in students:
+        total_hours=sum(lh.hours for lh in student.loggedhours if lh.status == 'approved')
+
+        leaderboard.append({
+            'name': student.username,
+            'hours': total_hours
+        })
+
+    leaderboard.sort(key=lambda item: item['hours'], reverse=True)
+
+    return leaderboard   
+
 def get_all_staff_json():
     staff_members = Staff.query.all()
     return [staff.get_json() for staff in staff_members]
