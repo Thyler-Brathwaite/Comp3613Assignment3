@@ -18,7 +18,6 @@ def accept_request_action():
     data = request.json
     if not data or 'request_id' not in data:
         return jsonify(message='Invalid request data'), 400
-    # Logic to accept the request goes here
     req = Request.query.get(data['request_id'])
     if not req:
         return jsonify(message='Request not found'), 404
@@ -36,7 +35,6 @@ def deny_request_action():
     data = request.json
     if not data or 'request_id' not in data:
         return jsonify(message='Invalid request data'), 400    
-    # Logic to deny the request goes here
     req = Request.query.get(data['request_id'])
     if not req:
         return jsonify(message='Request not found'), 404    
@@ -52,7 +50,6 @@ def delete_request_action():
     data = request.json
     if not data or 'request_id' not in data:
         return jsonify(message='Invalid request data'), 400
-    # Logic to delete the request goes here
     req = Request.query.get(data['request_id'])
     if not req:
         return jsonify(message='Request not found'), 404
@@ -66,7 +63,6 @@ def delete_logs_action():
     user = jwt_current_user
     if user.role != 'staff':
         return jsonify(message='Access forbidden: Not a staff member'), 403
-    # Logic to delete logs goes here
     data = request.json
     if not data or 'log_id' not in data:
         return jsonify(message='Invalid request data'), 400
