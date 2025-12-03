@@ -1,6 +1,8 @@
 from App.database import db
 from .user import User
-from App.models import LoggedHours, Student
+from App.models.loggedhours import LoggedHours
+from App.models.student import Student
+
 
 class Staff(User):
     __tablename__ = "staff"

@@ -1,5 +1,5 @@
 # App/observers/activity_history_observer.py
-from App.models import ActivityHistory, LoggedHours
+
 from App.database import db
 
 class ActivityHistoryObserver:
@@ -8,6 +8,7 @@ class ActivityHistoryObserver:
         event_type: string ("logged_hours", "milestone", etc.)
         data: object passed from Subject
         """
+        from App.models import ActivityHistory, LoggedHours
         if event_type == "logged_hours":
             log: LoggedHours = data
             entry = ActivityHistory(

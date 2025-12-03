@@ -24,6 +24,6 @@ class ActivityHistory(db.Model):
             'description': self.description,
             'timestamp': self.timestamp.isoformat()
         }
-        
+
     def __repr__(self):
         return f"[ActivityHistory ID={self.id} StudentID={self.student_id} Type={self.activity_type} Description={self.description}]"

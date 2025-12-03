@@ -72,3 +72,8 @@ def get_activity_history(student_id):
 
     return [h.get_json() for h in student.activityhistories]
 
+from App.models import ActivityHistory, Student
+
+def fetch_activity_history(student_id):
+    history = ActivityHistory.query.filter_by(student_id=student_id).order_by(ActivityHistory.timestamp.desc()).all()
+    return [h.get_json() for h in history]

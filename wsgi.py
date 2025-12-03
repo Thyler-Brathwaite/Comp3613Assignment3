@@ -201,6 +201,30 @@ def viewLeaderboard():
         print(f"An error occurred while generating the leaderboard: {e}")
     print("\n")
 
+
+# Command to view a student's activity history
+@student_cli.command("activity", help="View your activity history")
+def view_activity():
+    print("\n")
+    try:
+        student_id = int(input("Enter your student ID: "))
+        history = fetch_activity_history(student_id)
+
+        if not history:
+            print("No activity history available.")
+            return
+
+        print(f"Activity History for Student {student_id}:")
+        for h in history:
+            print(f"[{h['timestamp']}]  {h['activity_type']}  →  {h['description']}")
+
+    except ValueError:
+        print("Invalid student ID.")
+    except Exception as e:
+        print(f"Error: {e}")
+    print("\n")
+
+
 app.cli.add_command(student_cli) # add the group to the cli
 
 
@@ -325,6 +349,29 @@ def viewLeaderboard():
     except Exception as e:
         print(f"An error occurred while generating the leaderboard: {e}")
     print("\n")
+
+# Staff command to view a student's full activity history
+@staff_cli.command("studentActivity", help="View activity history for a student")
+def staff_view_activity():
+    print("\n")
+    try:
+        student_id = int(input("Enter the student ID: "))
+        history = fetch_activity_history(student_id)
+
+        if not history:
+            print(f"No activity history found for student {student_id}.")
+            return
+
+        print(f"Activity History for Student {student_id}:")
+        for h in history:
+            print(f"[{h['timestamp']}]  {h['activity_type']}  →  {h['description']}")
+
+    except ValueError:
+        print("Invalid student ID.")
+    except Exception as e:
+        print(f"Error: {e}")
+    print("\n")
+
 
 app.cli.add_command(staff_cli) # add the group to the cli
 
