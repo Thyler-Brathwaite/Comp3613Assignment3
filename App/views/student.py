@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, jsonify, request, send_from_direct
 from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from App.models import Student
 from.index import index_views
-from App.controllers.student_controller import get_all_students_json,fetch_accolades,create_hours_request
+from App.controllers.student_controller import get_all_students_json,fetch_accolades,create_hours_request, get_activity_history
+from App.controllers.student_controller import generate_leaderboard  
 
 student_views = Blueprint('student_views', __name__, template_folder='../templates')
 
@@ -28,3 +29,31 @@ def make_request_action():
         return jsonify(message='Invalid request data'), 400
     request_2 = create_hours_request(user.student_id, data['hours'])
     return jsonify(request_2.get_json()), 201
+
+@student_views.route('/api/activity_history', methods=['GET'])
+@jwt_required()
+def activity_history_action():
+    user = jwt_current_user
+    if user.role != 'student':
+        return jsonify(message='Access forbidden: Not a student'), 403
+
+    history = get_activity_history(user.student_id)
+
+    if not history:
+        return jsonify(message='No activity history found'), 404
+
+    return jsonify(history), 200 
+
+@student_views.route('/api/leaderboard', methods=['GET'])
+@jwt_required()
+def leaderboard_action():
+    user = jwt_current_user
+    if user.role != 'student':
+        return jsonify(message='Access forbidden: Not a student'), 403
+
+    board = generate_leaderboard()
+
+    if not board:
+        return jsonify(message='No students found'), 404
+
+    return jsonify(board), 200 
