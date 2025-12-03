@@ -4,6 +4,7 @@ from App.models import Student,Request,LoggedHours
 from.index import index_views
 from App.controllers.student_controller import get_all_students_json,fetch_accolades,create_hours_request
 from App.controllers.staff_controller import process_request_approval,process_request_denial
+from App.controllers.staff_controller import generate_leaderboard 
 from App import db
 
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
@@ -75,3 +76,17 @@ def delete_logs_action():
     db.session.delete(log)
     db.session.commit()
     return jsonify(message='Logs deleted'), 200
+
+@staff_views.route('/api/leaderboard', methods=['GET'])
+@jwt_required()
+def staff_leaderboard_action():
+    user = jwt_current_user
+    if user.role != 'staff':
+        return jsonify(message='Access forbidden: Not a staff member'), 403
+
+    board = generate_leaderboard()
+
+    if not board:
+        return jsonify(message='No students found'), 404
+
+    return jsonify(board), 200 
