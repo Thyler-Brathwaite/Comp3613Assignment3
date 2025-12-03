@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "e1f4fe3f-89c2-4ef6-900b-96ec865061e0",
+		"name": "O(no) - MVC API - Student Inc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50535521",
+		"_collection_link": "https://raphaelfrank668-2876833.postman.co/workspace/b147d7c7-d4a5-4516-8b00-49a6f78e175a/collection/50535521-e1f4fe3f-89c2-4ef6-900b-96ec865061e0?action=share&source=collection_link&creator=50535521"
+	},
+	"item": [
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Create Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"alex\",\r\n  \"email\": \"alex@example.com\",\r\n  \"password\": \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/create_Student",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"create_Student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"alice\",\r\n  \"password\": \"password1\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/login",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leaderboard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/leaderboard",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"leaderboard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activity History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDc1MDU1MCwianRpIjoiZWE4ZjlhMmMtMmExOS00ODM3LWJhYjUtMzFlNjljYzkxYjgwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEwIiwibmJmIjoxNzY0NzUwNTUwLCJleHAiOjE3NjQ3NTE0NTB9.pjpDZH904MyJbf2wmDcYjPt22qGgkbSpooUwZRSSb5c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/activity_history",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"activity_history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Students",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/students",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accolades",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/accolades",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"accolades"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Requests",
+			"item": [
+				{
+					"name": "Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/requests",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Staff",
+			"item": [
+				{
+					"name": "Create Staff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"tabby\",\r\n  \"email\": \"tabby@example.com\",\r\n  \"password\": \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/create_Staff",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"create_Staff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"tabby\",\r\n  \"password\": \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/login",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDc1MTE1NSwianRpIjoiMjUyNWJhNjItZDZkZS00MDJjLTg5YWQtNzVjZTYxOWEyN2NiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExIiwibmJmIjoxNzY0NzUxMTU1LCJleHAiOjE3NjQ3NTIwNTV9.BXZQrsVYplvoDKtVbSxp6cqSsuhdlVxqlDaWnoGptj4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"request_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://comp3613assignment3.onrender.com/api/accept_request",
+							"protocol": "https",
+							"host": [
+								"comp3613assignment3",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"accept_request"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
